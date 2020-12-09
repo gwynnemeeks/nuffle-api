@@ -1,0 +1,10 @@
+[
+    {
+        "model": "nuffleapi.coach",
+        "pk": 1,
+        "fields": {
+            "user": 1,
+            "username": "Steve the Coach"
+        }
+    }
+]

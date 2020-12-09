@@ -1,0 +1,66 @@
+[
+    {
+        "model": "nuffleapi.players",
+        "pk": 1,
+        "fields": {
+            "team": 1,
+            "name": "Ranya",
+            "position": "Lineman",
+            "movement": 7,
+            "strength": 3,
+            "agility": 7,
+            "armor": 3,
+            "skills": "Dodge",
+            "cost": 50000,
+            "history": "Intends to be mvp this next game. She can feel her luck turning."
+        }
+    },
+    {
+        "model": "nuffleapi.players",
+        "pk": 2,
+        "fields": {
+            "team": 1,
+            "name": "Slythn",
+            "position": "Lineman",
+            "movement": 7,
+            "strength": 3,
+            "agility": 7,
+            "armor": 3,
+            "skills": "Dodge",
+            "cost": 50000,
+            "history": "Recovering from a bad leap."
+        }
+    },
+    {
+        "model": "nuffleapi.players",
+        "pk": 3,
+        "fields": {
+            "team": 1,
+            "name": "Yestin",
+            "position": "Lineman",
+            "movement": 7,
+            "strength": 3,
+            "agility": 7,
+            "armor": 3,
+            "skills": "Dodge",
+            "cost": 50000,
+            "history": "No history. Don't ask."
+        }
+    },
+    {
+        "model": "nuffleapi.players",
+        "pk": 4,
+        "fields": {
+            "team": 1,
+            "name": "Sylverwynd",
+            "position": "Lineman",
+            "movement": 7,
+            "strength": 3,
+            "agility": 7,
+            "armor": 3,
+            "skills": "Dodge",
+            "cost": 50000,
+            "history": "Sometimes Y."
+        }
+    }
+]
