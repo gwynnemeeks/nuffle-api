@@ -1,0 +1,18 @@
+[
+    {
+        "model": "nuffleapi.eventnotes",
+        "pk": 1,
+        "fields": {
+            "event": 1,
+            "notes": "Super Fun!"
+        }
+    },
+    {
+        "model": "nuffleapi.eventnotes",
+        "pk": 2,
+        "fields": {
+            "event": 2,
+            "notes": "So much blood! Oh the humanity!"
+        }
+    }
+]

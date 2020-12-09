@@ -1,0 +1,9 @@
+[
+    {
+        "model": "nuffleapi.leagues",
+        "pk": 1,
+        "fields": {
+            "coach": 1
+        }
+    }
+]

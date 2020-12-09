@@ -1,0 +1,16 @@
+[
+    {
+        "models": "nuffleapi.teams",
+        "pk": 1,
+        "fields": {
+            "team_name": "Underwater Banshee",
+            "coach": 1,
+            "team_type": "Dark Elves",
+            "team_rank": 2,
+            "team_value": 1450,
+            "team_rerolls": 4,
+            "fan_factor": 2,
+            "league_name": "Number Two"
+        }
+    }
+]

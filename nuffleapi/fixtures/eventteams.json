@@ -1,0 +1,18 @@
+[
+    {
+        "model": "nuffleapi.eventteams",
+        "pk": 1,
+        "fields": {
+            "event": 1,
+            "team": 1
+        }
+    },
+    {
+        "model": "nuffleapi.eventteams",
+        "pk": 2,
+        "fields": {
+            "event": 2,
+            "team": 1
+        }
+    }
+]
