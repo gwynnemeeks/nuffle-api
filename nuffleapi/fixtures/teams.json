@@ -1,6 +1,6 @@
 [
     {
-        "models": "nuffleapi.teams",
+        "model": "nuffleapi.team",
         "pk": 1,
         "fields": {
             "team_name": "Underwater Banshee",
