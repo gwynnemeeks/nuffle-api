@@ -1,6 +1,6 @@
 [
     {
-        "model": "nuffleapi.eventnotes",
+        "model": "nuffleapi.eventnote",
         "pk": 1,
         "fields": {
             "event": 1,
@@ -8,7 +8,7 @@
         }
     },
     {
-        "model": "nuffleapi.eventnotes",
+        "model": "nuffleapi.eventnote",
         "pk": 2,
         "fields": {
             "event": 2,

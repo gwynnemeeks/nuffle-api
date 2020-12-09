@@ -1,6 +1,6 @@
 [
     {
-        "model": "nuffleapi.players",
+        "model": "nuffleapi.player",
         "pk": 1,
         "fields": {
             "team": 1,
@@ -9,14 +9,14 @@
             "movement": 7,
             "strength": 3,
             "agility": 7,
-            "armor": 3,
+            "armor_value": 3,
             "skills": "Dodge",
             "cost": 50000,
             "history": "Intends to be mvp this next game. She can feel her luck turning."
         }
     },
     {
-        "model": "nuffleapi.players",
+        "model": "nuffleapi.player",
         "pk": 2,
         "fields": {
             "team": 1,
@@ -25,14 +25,14 @@
             "movement": 7,
             "strength": 3,
             "agility": 7,
-            "armor": 3,
+            "armor_value": 3,
             "skills": "Dodge",
             "cost": 50000,
             "history": "Recovering from a bad leap."
         }
     },
     {
-        "model": "nuffleapi.players",
+        "model": "nuffleapi.player",
         "pk": 3,
         "fields": {
             "team": 1,
@@ -41,14 +41,14 @@
             "movement": 7,
             "strength": 3,
             "agility": 7,
-            "armor": 3,
+            "armor_value": 3,
             "skills": "Dodge",
             "cost": 50000,
             "history": "No history. Don't ask."
         }
     },
     {
-        "model": "nuffleapi.players",
+        "model": "nuffleapi.player",
         "pk": 4,
         "fields": {
             "team": 1,
@@ -57,7 +57,7 @@
             "movement": 7,
             "strength": 3,
             "agility": 7,
-            "armor": 3,
+            "armor_value": 3,
             "skills": "Dodge",
             "cost": 50000,
             "history": "Sometimes Y."
