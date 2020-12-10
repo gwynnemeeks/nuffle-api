@@ -59,7 +59,7 @@ def register_user(request):
 
     # Now save the extra info in the levelupapi_coach table
     coach = Coach.objects.create(
-        username=req_body['username'],
+        title=req_body['title'],
         user=new_user
     )
 
