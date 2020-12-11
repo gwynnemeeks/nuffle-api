@@ -35,3 +35,17 @@ class Events(ViewSet):
         serializer = EventSerializer(
             Events, many=True, context={'request': request})
         return Response(serializer.data)
+
+class EventSerializer(serializers.HyperlinkedModelSerializer):
+    """JSON serializer for events
+
+    Arguments:
+        serializers
+    """
+    class Meta:
+        model = Event
+        url = serializers.HyperlinkedIdentityField(
+            view_name='event'
+            lookup_field='id'
+        )
+        fields = ('id', 'day', 'time', 'location', 'final_score', 'event_schedule')
