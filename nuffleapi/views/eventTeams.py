@@ -31,13 +31,13 @@ class EventTeams(ViewSet):
         Returns:
             Response -- JSON serialized list of event-teams
         """
-        EventTeams = EventTeam.objects.all()
+        event_teams = EventTeam.objects.all()
 
         # Note the addtional `many=True` argument to the
         # serializer. It's needed when you are serializing
         # a list of objects instead of a single object.
         serializer = EventTeamSerializer(
-            EventTeams, many=True, context={'request': request})
+            event_teams, many=True, context={'request': request})
         return Response(serializer.data)
 
 class EventTeamSerializer(serializers.HyperlinkedModelSerializer):
