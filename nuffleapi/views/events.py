@@ -59,8 +59,8 @@ class TeamSerializer(serializers.HyperlinkedModelSerializer):
 
 class EventSerializer(serializers.HyperlinkedModelSerializer):
     """JSON serializer for events"""
-    coach = EventCoachSerializer(many=False)
-    team = TeamSerializer(many=False)
+    # coach = EventCoachSerializer(many=False)
+    # team = TeamSerializer(many=False)
 
     class Meta:
         model = Event
@@ -68,4 +68,4 @@ class EventSerializer(serializers.HyperlinkedModelSerializer):
             view_name='event',
             lookup_field='id'
         )
-        fields = ('id', 'url', 'team', 'coach', 'day', 'time', 'location', 'final_score', 'event_schedule')
+        fields = ('id', 'url', 'day', 'time', 'location', 'final_score', 'event_schedule')
