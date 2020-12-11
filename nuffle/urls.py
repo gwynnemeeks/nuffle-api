@@ -17,10 +17,12 @@ from django.conf.urls import include
 from django.urls import path
 from nuffleapi.views import register_user, login_user
 from nuffleapi.views.profiles import Profile
+from nuffleapi.views.teams import Teams
 from rest_framework import routers
 
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'profile', Profile, 'profiles')
+router.register(r'teams', Teams, 'team')
 
 urlpatterns = [
     path('', include(router.urls)),
