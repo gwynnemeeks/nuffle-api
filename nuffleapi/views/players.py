@@ -48,5 +48,5 @@ class PlayerSerializer(serializers.HyperlinkedModelSerializer):
             view_name='player',
             lookup_field='id'
         )
-        fields = ('id', 'url', 'team', 'name', 'position', 'movement', 'strength', 'agility', 'armor_value', 'skills', 'cost', 'history')
+        fields = ('id', 'name', 'position', 'movement', 'strength', 'agility', 'armor_value', 'skills', 'cost', 'history')
         depth = 1
