@@ -15,6 +15,19 @@ from nuffleapi.views.coach import CoachUser
 class Teams(ViewSet):
     """Nuffle teams"""
 
+    def retrieve(self, request, pk=None):
+        """Handle GET requests for single game type
+
+        Returns:
+            Response -- JSON serialized game type
+        """
+        try:
+            teams = Team.objects.get(pk=pk)
+            serializer = TeamSerializer(teams, context={'request': request})
+            return Response(serializer.data)
+        except Exception as ex:
+            return HttpResponseServerError(ex)
+
     def list (self, request):
         """Handle GET requests to the teams resource
         
