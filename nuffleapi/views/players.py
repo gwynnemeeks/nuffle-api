@@ -36,4 +36,17 @@ class Players(ViewSet):
             Players, many=True, context={'request': request})
         return Response(serializer.data)
 
-        
+class PlayerSerializer(serializers.HyperlinkedModelSerializer):
+    """JSON serializer for players
+
+    Arguments:
+        serializers
+    """
+    class Meta:
+        model = Player
+        url = serializers.HyperlinkedIdentityField(
+            view_name='player',
+            lookup_field='id'
+        )
+        fields = ('id', 'url', 'team', 'name', 'position', 'movement', 'strength', 'agility', 'armor_value', 'skills', 'cost', 'history')
+        depth = 1
