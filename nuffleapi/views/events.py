@@ -45,7 +45,7 @@ class EventSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Event
         url = serializers.HyperlinkedIdentityField(
-            view_name='event'
+            view_name='event',
             lookup_field='id'
         )
         fields = ('id', 'day', 'time', 'location', 'final_score', 'event_schedule')
