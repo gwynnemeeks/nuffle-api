@@ -9,7 +9,8 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.viewsets import ViewSet
 
-from nuffleapi.models import Team, Coach
+from nuffleapi.models import Team
+from nuffleapi.views.coach import CoachUser
 
 class Teams(ViewSet):
     """Nuffle teams"""
