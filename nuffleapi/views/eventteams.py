@@ -1,15 +1,16 @@
 """View module for handling requests about eventteams"""
 from django.core.exceptions import ValidationError
-from rest_framework import status
 from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers
 from rest_framework import status
 from nuffleapi.models import EventTeam, Event, Team
+from nuffleapi.views.events import EventSerializer
+from nuffleapi.views.teams import TeamSerializer
 
 
-class EventTeam(ViewSet):
+class EventTeams(ViewSet):
 
     """ eventteam viewset"""
     def retrieve(self, request, pk=None):
@@ -23,8 +24,9 @@ class EventTeam(ViewSet):
             #   http://localhost:8000/eventteams/2
             #
             # The `2` at the end of the route becomes `pk`
-            eventTeam = EventTeam.objects.get(pk=pk)
-            serializer = eventTeamSerializer(eventTeam, context={'request': request})
+
+            eventteam = EventTeam.objects.get(pk=pk)
+            serializer = eventTeamSerializer(eventteam, context={'request': request})
             return Response(serializer.data)
         except Exception as ex:
             return HttpResponseServerError(ex)
@@ -35,8 +37,19 @@ class EventTeam(ViewSet):
             Response -- JSON serialized list of games
         """
         # Get all event teams records from the database
-        eventTeams = EventTeam.objects.all()
+        eventteams = EventTeam.objects.all()
 
         serializer = eventTeamSerializer(
-            eventTeams, many=True, context={'request': request})
+            eventteams, many=True, context={'request': request})
         return Response(serializer.data)
+
+class eventTeamSerializer(serializers.ModelSerializer):
+    """JSON serializer for event teams"""
+
+    event = EventSerializer(many=False)
+    team = TeamSerializer(many=False)
+
+    class Meta:
+        model = EventTeam
+        fields = ('id', 'event', 'team')
+        depth = 1

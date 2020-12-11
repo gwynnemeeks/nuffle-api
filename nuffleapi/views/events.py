@@ -59,8 +59,6 @@ class TeamSerializer(serializers.HyperlinkedModelSerializer):
 
 class EventSerializer(serializers.HyperlinkedModelSerializer):
     """JSON serializer for events"""
-    # coach = EventCoachSerializer(many=False)
-    # team = TeamSerializer(many=False)
 
     class Meta:
         model = Event
