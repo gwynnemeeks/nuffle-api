@@ -1,5 +1,6 @@
 """View module for handling requests about players"""
 
+from nuffleapi.models.coach import Coach
 from django.core.exceptions import ValidationError
 from django.http import HttpResponseServerError
 
@@ -50,7 +51,12 @@ class Players(ViewSet):
         """
 
         # Uses the token passed in the `Authorization` header
-        team = Team.objects.get(user=request.auth.user)
+        coach = Coach.objects.get(user=request.auth.user)
+
+        # get all teams associated with coach using filter method, is id=to teamid, filter and a for loop
+        team = Team.objects.all()
+        if coach is not None:
+            team = team.filter(coach=coach)
 
         # Create new instance of the player class and set its properties
         player = Player()
@@ -64,7 +70,7 @@ class Players(ViewSet):
         player.skills = request.data["skills"]
         player.cost = request.data["cost"]
         player.history = request.data["history"]
-        player.team = team
+        player.team_name = team
 
 
         # try to save the new player to the database
@@ -87,7 +93,7 @@ class PlayerSerializer(serializers.HyperlinkedModelSerializer):
     Arguments:
         serializers
     """
-    team_name = TeamSerializer(many=True)
+    team = TeamSerializer(many=False)
 
     class Meta:
         model = Player
@@ -95,5 +101,5 @@ class PlayerSerializer(serializers.HyperlinkedModelSerializer):
             view_name='player',
             lookup_field='id'
         )
-        fields = ('id', 'team_name', 'name', 'position', 'movement', 'strength', 'agility', 'armor_value', 'skills', 'cost', 'history')
+        fields = ('id', 'team', 'name', 'position', 'movement', 'strength', 'agility', 'armor_value', 'skills', 'cost', 'history')
         depth = 1

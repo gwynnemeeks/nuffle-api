@@ -15,7 +15,6 @@ Including another URLconf
 """
 from django.conf.urls import include
 from django.urls import path
-from nuffleapi import views
 from nuffleapi.views import register_user, login_user
 from nuffleapi.views.events import Events
 from nuffleapi.views.eventnotes import EventNotes
