@@ -93,3 +93,13 @@ class TeamSerializer(serializers.HyperlinkedModelSerializer):
         )
         fields = ('id', 'coach', 'team_name', 'team_type', 'team_rank', 'team_value', 'team_rerolls', 'fan_factor', 'league_name')
         depth = 1
+
+class TeamNameOnlySerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Team
+        url = serializers.HyperlinkedIdentityField(
+            view_name='teams',
+            lookup_field='id'
+        )
+        fields = ('id', 'team_name')
+        depth = 1

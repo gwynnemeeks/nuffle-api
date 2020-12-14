@@ -9,7 +9,7 @@ from rest_framework import serializers
 from rest_framework import status
 
 from nuffleapi.models import Player, Team
-from nuffleapi.views.teams import TeamSerializer
+from nuffleapi.views.teams import TeamNameOnlySerializer
 
 class Players(ViewSet):
     """Nuffle players"""
@@ -33,13 +33,13 @@ class Players(ViewSet):
         Returns:
             Response -- JSON serialized list of players
         """
-        Players = Player.objects.all()
+        players = Player.objects.all()
 
         # Note the addtional `many=True` argument to the
         # serializer. It's needed when you are serializing
         # a list of objects instead of a single object.
         serializer = PlayerSerializer(
-            Players, many=True, context={'request': request})
+            players, many=True, context={'request': request})
         return Response(serializer.data)
 
     def create(self, request):
@@ -86,7 +86,7 @@ class PlayerSerializer(serializers.HyperlinkedModelSerializer):
     Arguments:
         serializers
     """
-    team = TeamSerializer(many=False)
+    team = TeamNameOnlySerializer(many=False)
 
     class Meta:
         model = Player
