@@ -52,25 +52,24 @@ class Players(ViewSet):
 
         # Uses the token passed in the `Authorization` header
         coach = Coach.objects.get(user=request.auth.user)
+        teams = Team.objects.filter(coach=coach, pk=request.data["team"])
+        if len(teams) == 0:
+            return Response({"reason": ex.message}, status=status.HTTP_401_UNAUTHORIZED)
 
-        # get all teams associated with coach using filter method, is id=to teamid, filter and a for loop
-        team = Team.objects.all()
-        if coach is not None:
-            team = team.filter(coach=coach)
+        else:
+        
+            player = Player()
 
-        # Create new instance of the player class and set its properties
-        player = Player()
-
-        player.name = request.data["name"]
-        player.position = request.data["position"]
-        player.movement = request.data["movement"]
-        player.strength = request.data["strength"]
-        player.agility = request.data["agility"]
-        player.armor_value = request.data["armor_value"]
-        player.skills = request.data["skills"]
-        player.cost = request.data["cost"]
-        player.history = request.data["history"]
-        player.team_name = team
+            player.name = request.data["name"]
+            player.position = request.data["position"]
+            player.movement = request.data["movement"]
+            player.strength = request.data["strength"]
+            player.agility = request.data["agility"]
+            player.armor_value = request.data["armor_value"]
+            player.skills = request.data["skills"]
+            player.cost = request.data["cost"]
+            player.history = request.data["history"]
+            player.team = teams
 
 
         # try to save the new player to the database
