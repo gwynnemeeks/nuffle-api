@@ -51,26 +51,21 @@ class Players(ViewSet):
         """
 
         # Uses the token passed in the `Authorization` header
-        coach = Coach.objects.get(user=request.auth.user)
-        teams = Team.objects.filter(coach=coach, pk=request.data["team"])
+        # coach = Coach.objects.get(user=request.auth.user)
+        team = Team.objects.get(pk=request.data["team_id"])
 
-        if len(teams) == 0:
-            return Response(status=status.HTTP_401_UNAUTHORIZED)
+        player = Player()
 
-        else:
-        
-            player = Player()
-
-            player.name = request.data["name"]
-            player.position = request.data["position"]
-            player.movement = request.data["movement"]
-            player.strength = request.data["strength"]
-            player.agility = request.data["agility"]
-            player.armor_value = request.data["armor_value"]
-            player.skills = request.data["skills"]
-            player.cost = request.data["cost"]
-            player.history = request.data["history"]
-            player.team_id = teams
+        player.name = request.data["name"]
+        player.position = request.data["position"]
+        player.movement = request.data["movement"]
+        player.strength = request.data["strength"]
+        player.agility = request.data["agility"]
+        player.armor_value = request.data["armor_value"]
+        player.skills = request.data["skills"]
+        player.cost = request.data["cost"]
+        player.history = request.data["history"]
+        player.team = team
 
 
         # try to save the new player to the database
