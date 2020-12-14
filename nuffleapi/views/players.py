@@ -1,9 +1,16 @@
 """View module for handling requests about players"""
+
+from nuffleapi.models.coach import Coach
+from django.core.exceptions import ValidationError
 from django.http import HttpResponseServerError
+
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers
-from nuffleapi.models import Player
+from rest_framework import status
+
+from nuffleapi.models import Player, Team
+from nuffleapi.views.teams import TeamSerializer
 
 class Players(ViewSet):
     """Nuffle players"""
@@ -27,14 +34,53 @@ class Players(ViewSet):
         Returns:
             Response -- JSON serialized list of players
         """
-        Players = Player.objects.all()
+        players = Player.objects.all()
 
         # Note the addtional `many=True` argument to the
         # serializer. It's needed when you are serializing
         # a list of objects instead of a single object.
         serializer = PlayerSerializer(
-            Players, many=True, context={'request': request})
+            players, many=True, context={'request': request})
         return Response(serializer.data)
+
+    def create(self, request):
+        """Handles POST opoerations
+
+        Returns:
+            Response -- JSON serialized player instance
+        """
+
+        # Uses the token passed in the `Authorization` header
+        # coach = Coach.objects.get(user=request.auth.user)
+        team = Team.objects.get(pk=request.data["team_id"])
+
+        player = Player()
+
+        player.name = request.data["name"]
+        player.position = request.data["position"]
+        player.movement = request.data["movement"]
+        player.strength = request.data["strength"]
+        player.agility = request.data["agility"]
+        player.armor_value = request.data["armor_value"]
+        player.skills = request.data["skills"]
+        player.cost = request.data["cost"]
+        player.history = request.data["history"]
+        player.team = team
+
+
+        # try to save the new player to the database
+        # serialize the player instance as JSON 
+        # send JSON as a response to the client request 
+        try:
+            player.save()
+            serializer = PlayerSerializer(player, context={'request': request})
+            return Response(serializer.data)
+
+        # if anything went wrong, catch the exception
+        # send a response with 400 status code to tell the client
+        # something was wrong with its request data
+        except ValidationError as ex:
+            return Response({"reason": ex.message}, status=status.HTTP_400_BAD_REQUEST)
 
 class PlayerSerializer(serializers.HyperlinkedModelSerializer):
     """JSON serializer for players
@@ -42,11 +88,13 @@ class PlayerSerializer(serializers.HyperlinkedModelSerializer):
     Arguments:
         serializers
     """
+    team = TeamSerializer(many=False)
+
     class Meta:
         model = Player
         url = serializers.HyperlinkedIdentityField(
             view_name='player',
             lookup_field='id'
         )
-        fields = ('id', 'name', 'position', 'movement', 'strength', 'agility', 'armor_value', 'skills', 'cost', 'history')
+        fields = ('id', 'team', 'name', 'position', 'movement', 'strength', 'agility', 'armor_value', 'skills', 'cost', 'history')
         depth = 1

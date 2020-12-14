@@ -1,7 +1,6 @@
 """View module for handling requests about teams"""
 
 from django.core.exceptions import ValidationError
-from django.db.models import fields
 from django.http import HttpResponseServerError
 
 from rest_framework import serializers
