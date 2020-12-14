@@ -10,7 +10,7 @@ from rest_framework.response import Response
 from rest_framework.viewsets import ViewSet
 
 from nuffleapi.models import Team
-from nuffleapi.views.coach import CoachUser
+from nuffleapi.views.coach import CoachProfileSerializer
 
 class Teams(ViewSet):
     """Nuffle teams"""
@@ -47,11 +47,14 @@ class TeamSerializer(serializers.HyperlinkedModelSerializer):
     Arguments:
         serializer type
     """
+
+    coach = CoachProfileSerializer(many=False)
+
     class Meta:
         model = Team
         url = serializers.HyperlinkedIdentityField(
             view_name='teams',
             lookup_field='id'
         )
-        fields = ('id', 'team_name', 'team_type', 'team_rank', 'team_value', 'team_rerolls', 'fan_factor', 'league_name')
+        fields = ('id', 'coach', 'team_name', 'team_type', 'team_rank', 'team_value', 'team_rerolls', 'fan_factor', 'league_name')
         depth = 1
