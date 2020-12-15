@@ -50,6 +50,7 @@ class Teams(ViewSet):
 
         # Uses the token passed in the `Authorization` header
         coach = Coach.objects.get(user=request.auth.user)
+        # Matches the league_id to the team
         league = League.objects.get(pk=request.data["league_id"])
 
         # Create new instance of the Team class and set its properties
