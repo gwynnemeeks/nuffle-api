@@ -38,6 +38,8 @@ class Events(ViewSet):
             events, many=True, context={'request': request})
         return Response(serializer.data)
 
+    
+
 class EventUserSerializer(serializers.ModelSerializer):
     """JSON serializer for event coach's related Django user"""
     class Meta:
@@ -50,12 +52,6 @@ class EventCoachSerializer(serializers.ModelSerializer):
     class Meta:
         model = Coach
         fields = ['user']
-
-class TeamSerializer(serializers.HyperlinkedModelSerializer):
-    """JSON serializer for teams"""
-    class Meta:
-        model: Team
-        fields = ('id', 'team_name', 'team_type', 'team_rank', 'team_value', 'team_rerolls', 'fan_factor', 'league_name')
 
 class EventSerializer(serializers.HyperlinkedModelSerializer):
     """JSON serializer for events"""
