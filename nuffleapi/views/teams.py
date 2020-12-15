@@ -78,6 +78,24 @@ class Teams(ViewSet):
         except ValidationError as ex:
             return Response({"reason": ex.message}, status=status.HTTP_400_BAD_REQUEST)
 
+    def destroy(self, request, pk=None):
+        """Handle DELETE requests for a single team
+
+        Returns:
+            Response -- 200, 404, or 500 status code
+        """
+        try:
+            team = Team.objects.get(pk=pk)
+            team.delete()
+
+            return Response({}, status=status.HTTP_204_NO_CONTENT)
+
+        except Team.DoesNotExist as ex:
+            return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
+
+        except Exception as ex:
+            return Response({'message': ex.args[0]}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
 
 class TeamSerializer(serializers.HyperlinkedModelSerializer):
     """Json serializer for teams
