@@ -56,5 +56,5 @@ class LeagueSerializer(serializers.HyperlinkedModelSerializer):
             view_name='leagues',
             lookup_field='id'
         )
-        fields = ('id', 'coach', 'teams')
+        fields = ('id', 'coach', 'league_name', 'teams')
         depth = 1
