@@ -9,7 +9,7 @@ from rest_framework import serializers
 from rest_framework import status
 
 from nuffleapi.models import Player, Team
-from nuffleapi.views.players import playerSerializer
+from nuffleapi.views.teams import TeamSerializer
 
 class Players(ViewSet):
     """Nuffle players"""
@@ -51,7 +51,6 @@ class Players(ViewSet):
 
         # Figure out that auth stuff and add it back in
 
-        player = Player.objects.get(pk=request.data["player_id"])
         team = Team.objects.get(pk=request.data["team_id"])
 
         #Create a new instance of the Player class and set its properties
@@ -67,7 +66,6 @@ class Players(ViewSet):
         player.cost = request.data["cost"]
         player.history = request.data["history"]
         player.team = team
-        player.player = player
 
 
         # try to save the new player to the database
@@ -109,7 +107,7 @@ class PlayerSerializer(serializers.HyperlinkedModelSerializer):
     Arguments:
         serializers
     """
-    player = playerSerializer(many=False)
+    team = TeamSerializer(many=False)
 
     class Meta:
         model = Player
@@ -117,5 +115,5 @@ class PlayerSerializer(serializers.HyperlinkedModelSerializer):
             view_name='player',
             lookup_field='id'
         )
-        fields = ('id', 'player', 'name', 'position', 'movement', 'strength', 'agility', 'armor_value', 'skills', 'cost', 'history')
+        fields = ('id', 'name', 'team', 'position', 'movement', 'strength', 'agility', 'armor_value', 'skills', 'cost', 'history')
         depth = 1
