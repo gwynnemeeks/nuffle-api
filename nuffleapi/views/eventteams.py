@@ -43,6 +43,35 @@ class EventTeams(ViewSet):
             eventteams, many=True, context={'request': request})
         return Response(serializer.data)
 
+    def create(self, request):
+        """handles POST operation
+
+        Returns:
+            Response -- JSON serialized eventteams instance
+        """
+        
+        # Create a new instance of the EventTeam class
+        # and set its properties from what was sent in 
+        # the body of the requet from the client.
+
+        eventTeam = EventTeam()
+        event = Event.objects.get(pk=request.data["event_id"])
+        team = Team.objects.get(pk=request.data["team_id"])
+        eventTeam.event = event
+        eventTeam.team = team
+
+        try:
+            eventTeam.save()
+            serializer = eventTeamSerializer(eventTeam, context={'request': request})
+            return Response(serializer.data)
+
+        # If anything went wrong, catch the exception and
+        # send a response with a 400 status code to tell the
+        # client that something was wrong with its request data
+        except ValidationError as ex:
+            return Response({"reason": ex.message}, status=status.HTTP_400_BAD_REQUEST)
+
+
 class eventTeamSerializer(serializers.ModelSerializer):
     """JSON serializer for event teams"""
 
