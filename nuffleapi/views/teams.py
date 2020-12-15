@@ -10,15 +10,16 @@ from rest_framework.viewsets import ViewSet
 
 from nuffleapi.models import Team
 from nuffleapi.views.coach import Coach, CoachProfileSerializer
+from nuffleapi.views.leagues import League, LeagueSerializer
 
 class Teams(ViewSet):
     """Nuffle teams"""
 
     def retrieve(self, request, pk=None):
-        """Handle GET requests for single game type
+        """Handle GET requests for single team
 
         Returns:
-            Response -- JSON serialized game type
+            Response -- JSON serialized team
         """
         try:
             teams = Team.objects.get(pk=pk)
@@ -49,6 +50,7 @@ class Teams(ViewSet):
 
         # Uses the token passed in the `Authorization` header
         coach = Coach.objects.get(user=request.auth.user)
+        league = League.objects.get(pk=request.data["league_id"])
 
         # Create new instance of the Team class and set its properties
         team = Team()
@@ -58,8 +60,9 @@ class Teams(ViewSet):
         team.team_value = request.data["team_value"]
         team.team_rerolls = request.data["team_rerolls"]
         team.fan_factor = request.data["fan_factor"]
-        team.league_name = request.data["league_name"]
+
         team.coach = coach
+        team.league = league
 
         # try to save the new team to the database
         # serialize the team instance as JSON 
@@ -84,6 +87,7 @@ class TeamSerializer(serializers.HyperlinkedModelSerializer):
     """
 
     coach = CoachProfileSerializer(many=False)
+    league = LeagueSerializer(many=False)
 
     class Meta:
         model = Team
@@ -91,5 +95,5 @@ class TeamSerializer(serializers.HyperlinkedModelSerializer):
             view_name='teams',
             lookup_field='id'
         )
-        fields = ('id', 'coach', 'team_name', 'team_type', 'team_rank', 'team_value', 'team_rerolls', 'fan_factor', 'league_name')
+        fields = ('id', 'coach', 'team_name', 'team_type', 'team_rank', 'team_value', 'team_rerolls', 'fan_factor', 'league')
         depth = 1

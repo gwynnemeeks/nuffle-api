@@ -3,7 +3,8 @@
         "model": "nuffleapi.league",
         "pk": 1,
         "fields": {
-            "coach": 1
+            "coach": 1,
+            "league_name": "Awesome Sauce"
         }
     }
 ]
