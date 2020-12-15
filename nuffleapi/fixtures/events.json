@@ -3,6 +3,7 @@
         "model": "nuffleapi.event",
         "pk": 1,
         "fields": {
+            "coach": 1,
             "day": "2020-12-26",
             "time": "15:00",
             "location": "Chez Meeks",
@@ -14,6 +15,7 @@
         "model": "nuffleapi.event",
         "pk": 2,
         "fields": {
+            "coach": 1,
             "day": "2021-01-01",
             "time": "15:00",
             "location": "Chez Meeks",
