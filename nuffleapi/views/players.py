@@ -1,6 +1,5 @@
 """View module for handling requests about players"""
 
-from nuffleapi.models.coach import Coach
 from django.core.exceptions import ValidationError
 from django.http import HttpResponseServerError
 
@@ -50,8 +49,8 @@ class Players(ViewSet):
             Response -- JSON serialized player instance
         """
 
-        # Uses the token passed in the `Authorization` header
-        # coach = Coach.objects.get(user=request.auth.user)
+        # Figure out that auth stuff and add it back in
+
         team = Team.objects.get(pk=request.data["team_id"])
 
         player = Player()
