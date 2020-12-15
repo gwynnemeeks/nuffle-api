@@ -32,7 +32,7 @@ class EventNotes(ViewSet):
     def list(self, request):
         """Handle GET requests to eventteams resource
         Returns:
-            Response -- JSON serialized list of games
+            Response -- JSON serialized list of eventNotess
         """
         # Get all event teams records from the database
         eventnotes = EventNote.objects.all()
@@ -68,6 +68,24 @@ class EventNotes(ViewSet):
         # client that something was wrong with its request data
         except ValidationError as ex:
             return Response({"reason": ex.message}, status=status.HTTP_400_BAD_REQUEST)
+
+    def destroy(self, request, pk=None):
+        """Handle DELETE requests for a single eventNotes
+
+        Returns:
+            Response -- 200, 404, or 500 status code
+        """
+        try:
+            eventNotes = EventNote.objects.get(pk=pk)
+            eventNotes.delete()
+
+            return Response({}, status=status.HTTP_204_NO_CONTENT)
+
+        except EventNote.DoesNotExist as ex:
+            return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
+
+        except Exception as ex:
+            return Response({'message': ex.args[0]}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 class eventNoteSerializer(serializers.ModelSerializer):
     """JSON serializer for event teams"""
