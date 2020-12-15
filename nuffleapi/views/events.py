@@ -73,6 +73,24 @@ class Events(ViewSet):
         except ValidationError as ex:
             return Response({"reason": ex.message}, status=status.HTTP_400_BAD_REQUEST)
 
+    def destroy(self, request, pk=None):
+        """Handle DELETE requests for a single event
+
+        Returns:
+            Response -- 200, 404, or 500 status code
+        """
+        try:
+            event = Event.objects.get(pk=pk)
+            event.delete()
+
+            return Response({}, status=status.HTTP_204_NO_CONTENT)
+
+        except Event.DoesNotExist as ex:
+            return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
+
+        except Exception as ex:
+            return Response({'message': ex.args[0]}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
 
 class EventUserSerializer(serializers.ModelSerializer):
     """JSON serializer for event coach's related Django user"""
