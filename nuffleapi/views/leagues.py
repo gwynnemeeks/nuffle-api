@@ -56,6 +56,20 @@ class Leagues(ViewSet):
 
         league.coach = coach
 
+         # try to save the new league to the database
+        # serialize the league instance as JSON 
+        # send JSON as a response to the client request 
+        try:
+            league.save()
+            serializer = LeagueSerializer(league, context={'request': request})
+            return Response(serializer.data)
+
+        # if anything went wrong, catch the exception
+        # send a response with 400 status code to tell the client
+        # something was wrong with its request data
+        except ValidationError as ex:
+            return Response({"reason": ex.message}, status=status.HTTP_400_BAD_REQUEST)
+
 class LeagueSerializer(serializers.HyperlinkedModelSerializer):
     """Json serializer for leagues
 
