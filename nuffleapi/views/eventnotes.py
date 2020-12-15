@@ -5,7 +5,7 @@ from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers
 from rest_framework import status
-from nuffleapi.models import EventNote, eventnotes
+from nuffleapi.models import EventNote, Event
 from nuffleapi.views.events import EventSerializer
 
 class EventNotes(ViewSet):
@@ -40,6 +40,34 @@ class EventNotes(ViewSet):
         serializer = eventNoteSerializer(
             eventnotes, many=True, context={'request': request})
         return Response(serializer.data)
+
+    def create(self, request):
+        """handles POST operation
+
+        Returns:
+            Response -- JSON serialized eventteams instance
+        """
+        
+        # Create a new instance of the EventTeam class
+        # and set its properties from what was sent in 
+        # the body of the requet from the client.
+
+        eventNotes = EventNote()
+        event = Event.objects.get(pk=request.data["event_id"])
+        
+        eventNotes.event = event
+        eventNotes.notes = request.data["notes"]
+
+        try:
+            eventNotes.save()
+            serializer = eventNoteSerializer(eventNotes, context={'request': request})
+            return Response(serializer.data)
+
+        # If anything went wrong, catch the exception and
+        # send a response with a 400 status code to tell the
+        # client that something was wrong with its request data
+        except ValidationError as ex:
+            return Response({"reason": ex.message}, status=status.HTTP_400_BAD_REQUEST)
 
 class eventNoteSerializer(serializers.ModelSerializer):
     """JSON serializer for event teams"""
