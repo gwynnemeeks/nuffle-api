@@ -15,10 +15,10 @@ class Teams(ViewSet):
     """Nuffle teams"""
 
     def retrieve(self, request, pk=None):
-        """Handle GET requests for single game type
+        """Handle GET requests for single team
 
         Returns:
-            Response -- JSON serialized game type
+            Response -- JSON serialized team
         """
         try:
             teams = Team.objects.get(pk=pk)
