@@ -16,6 +16,7 @@ Including another URLconf
 from django.conf.urls import include
 from django.urls import path
 from nuffleapi.views import register_user, login_user
+from nuffleapi.views.coach import CoachUser
 from nuffleapi.views.events import Events
 from nuffleapi.views.eventnotes import EventNotes
 from nuffleapi.views.eventteams import EventTeams
@@ -26,6 +27,8 @@ from nuffleapi.views.teams import Teams
 from rest_framework import routers
 
 router = routers.DefaultRouter(trailing_slash=False)
+
+router.register(r'coach', CoachUser, 'coach')
 router.register(r'events', Events, 'event')
 router.register(r'eventnotes', EventNotes, 'eventnote')
 router.register(r'eventteams', EventTeams, 'eventteam')

@@ -10,6 +10,7 @@ from rest_framework.viewsets import ViewSet
 
 from nuffleapi.models import League
 from nuffleapi.views.coach import CoachProfileSerializer
+from nuffleapi.views.teams import TeamSerializer
 
 class Leagues(ViewSet):
     """Nuffle Leagues"""
@@ -55,5 +56,5 @@ class LeagueSerializer(serializers.HyperlinkedModelSerializer):
             view_name='leagues',
             lookup_field='id'
         )
-        fields = ('id', 'coach')
+        fields = ('id', 'coach', 'teams')
         depth = 1
