@@ -9,8 +9,7 @@ from rest_framework.response import Response
 from rest_framework.viewsets import ViewSet
 
 from nuffleapi.models import League
-from nuffleapi.views.coach import CoachProfileSerializer
-from nuffleapi.views.teams import TeamSerializer
+from nuffleapi.views.coach import Coach, CoachProfileSerializer
 
 class Leagues(ViewSet):
     """Nuffle Leagues"""
@@ -40,6 +39,22 @@ class Leagues(ViewSet):
         serializer = LeagueSerializer (
             leagues, many=True, context={'request': request})
         return Response(serializer.data)
+
+    def create(self, request):
+        """Handles POST opoerations
+
+        Returns:
+            Response -- JSON serialized team instance
+        """
+
+        # Uses the token passed in the `Authorization` header
+        coach = Coach.objects.get(user=request.auth.user)
+
+        # Create new instance of the League class and set its properties
+        league = League()
+        league.league_name = request.data["league_name"]
+
+        league.coach = coach
 
 class LeagueSerializer(serializers.HyperlinkedModelSerializer):
     """Json serializer for leagues
