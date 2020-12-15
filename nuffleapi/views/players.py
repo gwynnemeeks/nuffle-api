@@ -9,7 +9,7 @@ from rest_framework import serializers
 from rest_framework import status
 
 from nuffleapi.models import Player, Team
-from nuffleapi.views.teams import TeamSerializer
+from nuffleapi.views.players import playerSerializer
 
 class Players(ViewSet):
     """Nuffle players"""
@@ -51,8 +51,10 @@ class Players(ViewSet):
 
         # Figure out that auth stuff and add it back in
 
+        player = Player.objects.get(pk=request.data["player_id"])
         team = Team.objects.get(pk=request.data["team_id"])
 
+        #Create a new instance of the Player class and set its properties
         player = Player()
 
         player.name = request.data["name"]
@@ -65,6 +67,7 @@ class Players(ViewSet):
         player.cost = request.data["cost"]
         player.history = request.data["history"]
         player.team = team
+        player.player = player
 
 
         # try to save the new player to the database
@@ -81,13 +84,32 @@ class Players(ViewSet):
         except ValidationError as ex:
             return Response({"reason": ex.message}, status=status.HTTP_400_BAD_REQUEST)
 
+    def destroy(self, request, pk=None):
+        """Handle DELETE requests for a single player
+
+        Returns:
+            Response -- 200, 404, or 500 status code
+        """
+        try:
+            player = Player.objects.get(pk=pk)
+            player.delete()
+
+            return Response({}, status=status.HTTP_204_NO_CONTENT)
+
+        except Player.DoesNotExist as ex:
+            return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
+
+        except Exception as ex:
+            return Response({'message': ex.args[0]}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
 class PlayerSerializer(serializers.HyperlinkedModelSerializer):
     """JSON serializer for players
 
     Arguments:
         serializers
     """
-    team = TeamSerializer(many=False)
+    player = playerSerializer(many=False)
 
     class Meta:
         model = Player
@@ -95,5 +117,5 @@ class PlayerSerializer(serializers.HyperlinkedModelSerializer):
             view_name='player',
             lookup_field='id'
         )
-        fields = ('id', 'team', 'name', 'position', 'movement', 'strength', 'agility', 'armor_value', 'skills', 'cost', 'history')
+        fields = ('id', 'player', 'name', 'position', 'movement', 'strength', 'agility', 'armor_value', 'skills', 'cost', 'history')
         depth = 1
