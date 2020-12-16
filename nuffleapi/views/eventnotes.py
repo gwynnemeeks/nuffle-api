@@ -96,14 +96,14 @@ class EventNotes(ViewSet):
         # Do mostly the same thing as POST, but instead of
         # creating a new instance of eventnotes, get the eventnotes record
         # from the database whose primary key is `pk`
-        eventnotes = EventNote.objects.get(pk=pk)
+        eventNotes = EventNote.objects.get(pk=pk)
         event = Event.objects.get(pk=request.data["event_id"])
         
         eventNotes.event = event
         eventNotes.notes = request.data["notes"]
 
         
-        eventnotes.save()
+        eventNotes.save()
 
         # 204 status code means everything worked but the
         # server is not sending back any data in the response
