@@ -8,7 +8,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.viewsets import ViewSet
 
-from nuffleapi.models import Team, teams
+from nuffleapi.models import Team
 from nuffleapi.views.coach import Coach, CoachProfileSerializer
 from nuffleapi.views.leagues import League, LeagueSerializer
 
@@ -116,7 +116,7 @@ class Teams(ViewSet):
         team.team_value = request.data["team_value"]
         team.team_rerolls = request.data["team_rerolls"]
         team.fan_factor = request.data["fan_factor"]
-        teams.coach = coach
+        team.coach = coach
 
         league = League.objects.get(pk=request.data["league_id"])
         team.league = league
