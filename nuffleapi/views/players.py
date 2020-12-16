@@ -8,7 +8,7 @@ from rest_framework.response import Response
 from rest_framework import serializers
 from rest_framework import status
 
-from nuffleapi.models import Player, Team, players
+from nuffleapi.models import Player, Team
 from nuffleapi.views.teams import TeamSerializer
 
 class Players(ViewSet):
