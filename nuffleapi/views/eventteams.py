@@ -89,6 +89,29 @@ class EventTeams(ViewSet):
         except Exception as ex:
             return Response({'message': ex.args[0]}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+    def update(self, request, pk=None):
+        """Handle PUT requests for an eventnote
+
+        Returns:
+            Response -- Empty body with 204 status code
+        """
+        # Do mostly the same thing as POST, but instead of
+        # creating a new instance of eventTeams, get the eventTeams record
+        # from the database whose primary key is `pk`
+        eventTeams = EventTeam.objects.get(pk=pk)
+        event = Event.objects.get(pk=request.data["event_id"])
+        teams = Team.objects.get(pk=request.data["team_id"])
+        
+        eventTeams.event = event
+        eventTeams.teams = teams
+
+        
+        eventTeams.save()
+
+        # 204 status code means everything worked but the
+        # server is not sending back any data in the response
+        return Response({}, status=status.HTTP_204_NO_CONTENT)
+
 
 class eventTeamSerializer(serializers.ModelSerializer):
     """JSON serializer for event teams"""
