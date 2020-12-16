@@ -124,7 +124,6 @@ class Players(ViewSet):
         player.history = request.data["history"]
         player.team = team
 
-        player = Player.objects.get(pk=request.data["player_id"])
         player.save()
 
         # 204 status code means everything worked but the
