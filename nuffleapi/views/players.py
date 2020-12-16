@@ -8,7 +8,7 @@ from rest_framework.response import Response
 from rest_framework import serializers
 from rest_framework import status
 
-from nuffleapi.models import Player, Team
+from nuffleapi.models import Player, Team, players
 from nuffleapi.views.teams import TeamSerializer
 
 class Players(ViewSet):
@@ -99,6 +99,36 @@ class Players(ViewSet):
 
         except Exception as ex:
             return Response({'message': ex.args[0]}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    def update(self, request, pk=None):
+        """Handle PUT requests for a player
+
+        Returns:
+            Response -- Empty body with 204 status code
+        """
+        team = Team.objects.get(pk=request.data["team_id"])
+
+        # Do mostly the same thing as POST, but instead of
+        # creating a new instance of player, get the player record
+        # from the database whose primary key is `pk`
+        player = Player.objects.get(pk=pk)
+
+        player.name = request.data["name"]
+        player.position = request.data["position"]
+        player.movement = request.data["movement"]
+        player.strength = request.data["strength"]
+        player.agility = request.data["agility"]
+        player.armor_value = request.data["armor_value"]
+        player.skills = request.data["skills"]
+        player.cost = request.data["cost"]
+        player.history = request.data["history"]
+        player.team = team
+
+        player.save()
+
+        # 204 status code means everything worked but the
+        # server is not sending back any data in the response
+        return Response({}, status=status.HTTP_204_NO_CONTENT)
 
 
 class PlayerSerializer(serializers.HyperlinkedModelSerializer):
