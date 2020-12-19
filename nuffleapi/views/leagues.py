@@ -8,7 +8,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.viewsets import ViewSet
 
-from nuffleapi.models import League, coach
+from nuffleapi.models import League
 from nuffleapi.views.coach import Coach, CoachProfileSerializer
 
 class Leagues(ViewSet):
