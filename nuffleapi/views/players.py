@@ -51,7 +51,7 @@ class Players(ViewSet):
 
         # Figure out that auth stuff and add it back in
 
-        team = Team.objects.get(pk=request.data["team_id"])
+        team = Team.objects.get(pk=request.data["teamId"])
 
         #Create a new instance of the Player class and set its properties
         player = Player()
@@ -61,7 +61,7 @@ class Players(ViewSet):
         player.movement = request.data["movement"]
         player.strength = request.data["strength"]
         player.agility = request.data["agility"]
-        player.armor_value = request.data["armor_value"]
+        player.armor_value = request.data["armorValue"]
         player.skills = request.data["skills"]
         player.cost = request.data["cost"]
         player.history = request.data["history"]
