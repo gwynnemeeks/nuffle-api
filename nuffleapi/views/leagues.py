@@ -52,7 +52,7 @@ class Leagues(ViewSet):
 
         # Create new instance of the League class and set its properties
         league = League()
-        league.league_name = request.data["league_name"]
+        league.league_name = request.data["leagueName"]
 
         league.coach = coach
 
