@@ -33,7 +33,11 @@ class Players(ViewSet):
         Returns:
             Response -- JSON serialized list of players
         """
-        players = Player.objects.all()
+        team = self.request.query_params.get('team', None)
+
+        players = Player.objects.filter(team__id = team)
+
+        
 
         # Note the addtional `many=True` argument to the
         # serializer. It's needed when you are serializing
