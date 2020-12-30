@@ -37,6 +37,10 @@ class Teams(ViewSet):
         # Get all team records from the database
         teams = Team.objects.all()
 
+        coach = Coach.objects.get(user=request.auth.user)
+        if coach is not None:
+            teams = teams.filter(coach=coach)
+
         serializer = TeamSerializer (
             teams, many=True, context={'request': request})
         return Response(serializer.data)

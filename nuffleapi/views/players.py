@@ -35,6 +35,11 @@ class Players(ViewSet):
         """
         players = Player.objects.all()
 
+        team = self.request.query_params.get('teamId', None)
+
+        if team is not None:
+            players = players.filter(team__id=team)        
+
         # Note the addtional `many=True` argument to the
         # serializer. It's needed when you are serializing
         # a list of objects instead of a single object.
