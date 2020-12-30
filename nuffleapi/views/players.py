@@ -35,7 +35,7 @@ class Players(ViewSet):
         """
         players = Player.objects.all()
 
-        team = self.request.query_params.get('team', None)
+        team = self.request.query_params.get('teamId', None)
 
         if team is not None:
             players = players.filter(team__id=team)        
