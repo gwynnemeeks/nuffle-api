@@ -102,7 +102,7 @@ class Leagues(ViewSet):
         # from the database whose primary key is `pk`
 
         league = League.objects.get(pk=pk)
-        league.league_name = request.data["league_name"]
+        league.league_name = request.data["leagueName"]
 
         league.coach = coach
         league.save()
