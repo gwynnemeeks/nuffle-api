@@ -114,15 +114,15 @@ class Teams(ViewSet):
         # creating a new instance of Game, get the game record
         # from the database whose primary key is `pk`
         team = Team.objects.get(pk=pk)
-        team.team_name = request.data["team_name"]
-        team.team_type = request.data["team_type"]
-        team.team_rank = request.data["team_rank"]
-        team.team_value = request.data["team_value"]
-        team.team_rerolls = request.data["team_rerolls"]
-        team.fan_factor = request.data["fan_factor"]
+        team.team_name = request.data["teamName"]
+        team.team_type = request.data["teamType"]
+        team.team_rank = request.data["teamRank"]
+        team.team_value = request.data["teamValue"]
+        team.team_rerolls = request.data["teamRerolls"]
+        team.fan_factor = request.data["fanFactor"]
         team.coach = coach
 
-        league = League.objects.get(pk=request.data["league_id"])
+        league = League.objects.get(pk=request.data["leagueId"])
         team.league = league
         team.save()
 
