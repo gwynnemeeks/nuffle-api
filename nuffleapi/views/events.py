@@ -106,8 +106,8 @@ class Events(ViewSet):
         event.day = request.data["day"]
         event.time = request.data["time"]
         event.location = request.data["location"]
-        event.final_score = request.data["final_score"]
-        event.event_schedule = request.data["event_schedule"]
+        event.final_score = request.data["finalScore"]
+        event.event_schedule = request.data["eventSchedule"]
         event.coach = coach
 
         event.save()
