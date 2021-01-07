@@ -122,7 +122,7 @@ class Teams(ViewSet):
         team.fan_factor = request.data["fanFactor"]
         team.coach = coach
 
-        league = League.objects.get(pk=request.data["leagueId"])
+        league = League.objects.get(pk=int(request.data["leagueId"]))
         team.league = league
         team.save()
 
