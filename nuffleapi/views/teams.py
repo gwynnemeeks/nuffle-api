@@ -59,12 +59,12 @@ class Teams(ViewSet):
 
         # Create new instance of the Team class and set its properties
         team = Team()
-        team.team_name = request.data["teamName"]
-        team.team_type = request.data["teamType"]
-        team.team_rank = request.data["teamRank"]
-        team.team_value = request.data["teamValue"]
-        team.team_rerolls = request.data["teamRerolls"]
-        team.fan_factor = request.data["fanFactor"]
+        team.team_name = request.data["team_name"]
+        team.team_type = request.data["team_type"]
+        team.team_rank = request.data["team_rank"]
+        team.team_value = request.data["team_value"]
+        team.team_rerolls = request.data["team_rerolls"]
+        team.fan_factor = request.data["fan_factor"]
 
         team.coach = coach
         team.league = league
