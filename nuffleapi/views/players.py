@@ -111,7 +111,7 @@ class Players(ViewSet):
         Returns:
             Response -- Empty body with 204 status code
         """
-        team = Team.objects.get(pk=request.data["team_id"])
+        team = Team.objects.get(pk=int(request.data["teamId"]))
 
         # Do mostly the same thing as POST, but instead of
         # creating a new instance of player, get the player record
@@ -123,7 +123,7 @@ class Players(ViewSet):
         player.movement = request.data["movement"]
         player.strength = request.data["strength"]
         player.agility = request.data["agility"]
-        player.armor_value = request.data["armor_value"]
+        player.armor_value = request.data["armorValue"]
         player.skills = request.data["skills"]
         player.cost = request.data["cost"]
         player.history = request.data["history"]
